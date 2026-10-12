@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заполнение профиля</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #0b0813;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .screen-wrapper {
+      text-align: center;
+      width: 100%;
+      max-width: 440px;
+      padding: 32px;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(15px);
+      animation: fadeInForm 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInForm {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 44px;
+      letter-spacing: 0.3px;
+      color: #ffffff;
+    }
+
+    .form-column {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .input-field {
+      background-color: #151123;
+      border: 1px solid #27223c;
+      border-radius: 60px;
+      padding: 22px 32px;
+      font-size: 19px;
+      color: #ffffff;
+      width: 100%;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.25s ease;
+    }
+
+    .input-field:focus {
+      border-color: #5c47bd;
+      background-color: #1a152e;
+      box-shadow: 0 0 20px rgba(92, 71, 189, 0.15);
+    }
+
+    .input-field::placeholder {
+      color: #4e4965;
+    }
+
+    .input-field.has-error {
+      border-color: #ff3b30;
+      box-shadow: 0 0 15px rgba(255, 59, 48, 0.15);
+    }
+
+    .error-text {
+      color: #ff3b30;
+      font-size: 15px;
+      text-align: left;
+      padding-left: 32px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .btn-submit {
+      background-color: #1c1833;
+      border: 1px solid #2d284a;
+      color: #ffffff;
+      font-size: 19px;
+      font-weight: 500;
+      padding: 22px 0;
+      width: 100%;
+      border-radius: 60px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.2s ease;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .btn-submit.active {
+      opacity: 1;
+      pointer-events: auto;
+      background-color: #231d42;
+      border-color: #3d3566;
+    }
+
+    .btn-submit.active:hover {
+      background-color: #2d2554;
+      border-color: #4c4280;
+    }
+
+    .btn-submit.active:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="screen-wrapper">
+    <h1>Заполните профиль</h1>
+
+    <form id="profileForm" class="form-column">
+      <div class="input-wrapper">
+        <input type="text" id="firstName" class="input-field" placeholder="Имя" autocomplete="off">
+        <div id="errorName" class="error-text">Пожалуйста, введите ваше имя</div>
+      </div>
+
+      <div class="input-wrapper">
+        <input type="text" id="lastName" class="input-field" placeholder="Фамилия (необязательно)" autocomplete="off">
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Готово</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('profileForm');
+    const firstNameInput = document.getElementById('firstName');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorName = document.getElementById('errorName');
+
+    function validateInput() {
+      const nameValue = firstNameInput.value.trim();
+
+      if (nameValue.length > 0) {
+        submitBtn.classList.add('active');
+        firstNameInput.classList.remove('has-error');
+        errorName.style.display = 'none';
+      } else {
+        submitBtn.classList.remove('active');
+      }
+    }
+
+    firstNameInput.addEventListener('input', validateInput);
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nameValue = firstNameInput.value.trim();
+
+      if (nameValue.length === 0) {
+        firstNameInput.classList.add('has-error');
+        errorName.style.display = 'block';
+      } else {
+        window.location.href = "ГлавнаяСтраница.html?user=" + encodeURIComponent(nameValue);
+      }
+    });
+  </script>
+
+</body>
+</html>

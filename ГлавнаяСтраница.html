@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nebula — Мессенджер</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <input type="text" class="search-box" id="search-input" placeholder="Поиск по @username...">
+    </div>
+    
+    <div class="chats-stream" id="chats-box-stream">
+      <div class="dialog-item active" id="chat-1" onclick="window.openChat()">
+        <div class="avatar-circle" style="background-color: #007aff;">📘</div>
+        <div class="dialog-info">
+          <div class="dialog-name">Избранное</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sidebar-footer">
+      <button class="btn-settings-icon" onclick="window.openSettings()">⚙️</button>
+      <button class="btn-fab-plus" onclick="window.toggleFabMenu()">+</button>
+      
+      <div class="fab-menu" id="fab-menu-popup">
+        <button class="fab-menu-item" onclick="window.createRoom('group')">👥 Создать группу</button>
+        <button class="fab-menu-item" onclick="window.createRoom('channel')">📢 Создать канал</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="welcome-container" id="welcome-screen">
+      <h1>Здравствуйте, <span class="user-name-highlight">парень леша</span>! Рады вас видеть.</h1>
+    </div>
+    
+    <div class="chat-window" id="chat-screen" style="display: none;">
+      <div class="chat-header" id="chat-header-title">
+        <div class="avatar-circle" style="width:36px; height:36px; min-width:36px; min-height:36px; font-size:16px; margin-right:10px; background-color: #007aff;">📘</div>
+        Избранное
+      </div>
+      <div class="messages-container" id="messages-box"></div>
+      <form class="chat-input-bar" onsubmit="window.sendMessage(event)">
+        <input type="text" id="msg-input" class="message-input" placeholder="Напишите сообщение..." autocomplete="off">
+        <button type="submit" class="btn-send">🔮</button>
+      </form>
+    </div>
+
+    <div class="settings-window" id="settings-screen">
+      <div class="settings-header">Настройки профиля</div>
+      <div class="settings-body">
+        <div class="settings-avatar-big">ПЛ</div>
+        <h2>парень леша</h2>
+        
+        <div class="settings-box-card">
+          <div class="username-view-row" onclick="window.ts('edit-block', 'user-in')">
+            <div>
+              <div class="card-title">Имя пользователя</div>
+              <div id="user-static-text" class="card-value">@lesha</div>
+            </div>
+            <button type="button" class="btn-edit-username">Изменить</button>
+          </div>
+          <div class="username-edit-block" id="edit-block">
+            <div class="settings-label">Новый Username</div>
+            <input type="text" id="user-in" class="settings-input" placeholder="Введите username...">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
